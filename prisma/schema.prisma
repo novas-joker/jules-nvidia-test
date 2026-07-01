@@ -1,0 +1,58 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id            String    @id @default(cuid())
+  clerkId       String    @unique
+  email         String?
+  name          String?
+  image         String?
+  chats         Chat[]
+  folders       Folder[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Folder {
+  id        String   @id @default(cuid())
+  name      String
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  chats     Chat[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Chat {
+  id        String    @id @default(cuid())
+  title     String    @default("New Chat")
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  folderId  String?
+  folder    Folder?   @relation(fields: [folderId], references: [id])
+  messages  Message[]
+  isPinned  Boolean   @default(false)
+  isArchived Boolean  @default(false)
+  model     String    @default("google/diffusiongemma-26b-a4b-it")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@index([userId])
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  role      String   // "user", "assistant", "system"
+  content   String   @db.Text
+  chatId    String
+  chat      Chat     @relation(fields: [chatId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([chatId])
+}
