@@ -1,11 +1,107 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@plugin "tailwindcss-animate";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --font-sans: "gg sans", "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
+@layer base {
+  :root {
+    --background: 220 13% 100%;
+    --foreground: 223 14% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 223 14% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 223 14% 10%;
+    --primary: 235 86% 65%; /* Discord Blurple */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 223 14% 95%;
+    --secondary-foreground: 223 14% 10%;
+    --muted: 223 14% 95%;
+    --muted-foreground: 223 7% 40%;
+    --accent: 223 14% 95%;
+    --accent-foreground: 223 14% 10%;
+    --destructive: 359 83% 61%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 223 14% 90%;
+    --input: 223 14% 90%;
+    --ring: 235 86% 65%;
+    --radius: 0.5rem;
+
+    --discord-sidebar: 223 7% 97%;
+    --discord-main: 0 0% 100%;
+    --discord-header: 0 0% 100%;
+  }
+  .dark {
+    --background: 223 7% 11%; /* #1E1F22 - Discord Dark Sidebar/Icon Col */
+    --foreground: 210 9% 87%; /* #DBDEE1 - Discord Text Normal */
+    --card: 220 7% 18%; /* #2B2D31 - Discord Channel List */
+    --card-foreground: 210 9% 87%;
+    --popover: 223 7% 11%;
+    --popover-foreground: 210 9% 87%;
+    --primary: 235 86% 65%; /* #5865F2 - Discord Blurple */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 223 6% 20%; /* #313338 - Discord Main Chat Area */
+    --secondary-foreground: 210 9% 87%;
+    --muted: 223 6% 20%;
+    --muted-foreground: 214 8% 61%; /* #949BA4 - Discord Text Muted */
+    --accent: 225 6% 25%; /* Hover state */
+    --accent-foreground: 210 9% 87%;
+    --destructive: 359 83% 61%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 225 6% 15%;
+    --input: 223 6% 20%;
+    --ring: 235 86% 65%;
+
+    --discord-sidebar: 220 7% 18%; /* #2B2D31 */
+    --discord-main: 223 6% 20%; /* #313338 */
+    --discord-header: 223 6% 20%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
 }
